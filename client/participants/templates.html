@@ -1,0 +1,76 @@
+<template name="participants">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="page-header">
+        <h1>Mes participants</h1>
+        <div class="btn-group" role="group" aria-label="Barre d'outils">
+          <a href="{{pathFor 'participantsNew'}}" class="btn btn-primary">Nouveau participant</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="list-group">
+        <a class="list-group-item {{#unless eventId}}active{{/unless}}" href="{{pathFor 'participants'}}">
+          Tous
+        </a>
+        {{#each recurringEvents}}
+          {{>_recurringEvent route='participantsByEvent'}}
+        {{/each}}
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="list-group">
+        {{#each participants}}
+          {{>_participant}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="_participant">
+  <a class="list-group-item participant" href="{{pathFor 'participantsEdit'}}">
+    {{lastName}}, {{firstName}}
+  </a>
+</template>
+
+<template name="participantsNew">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="page-header">
+        <h1>Nouveau participant</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      {{>_participantsForm}}
+    </div>
+  </div>
+</template>
+
+<template name="participantsEdit">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="page-header">
+        <h1>{{participant.lastName}}, {{participant.firstName}}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      {{>_participantsForm}}
+    </div>
+  </div>
+</template>
+
+<template name="_participantsForm">
+  {{>quickForm
+      collection=collection
+      doc=participant
+      type=operation
+      omitFields="eventOccurencesIds, recurringEventsIds"
+      buttonContent="Enregistrer"}}
+</template>

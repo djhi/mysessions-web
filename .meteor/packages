@@ -1,0 +1,36 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+autopublish
+insecure
+accounts-ui
+accounts-password
+accounts-google
+service-configuration
+
+multiply:iron-router-progress@=1.0.0-pre2
+zimme:iron-router-active@1.0.1
+useraccounts:bootstrap@1.5.0
+fourseven:scss@=1.0.0
+reywood:bootstrap3-sass@3.3.0_2
+linto:fontawesome@4.2.6
+wizonesolutions:underscore-string
+
+mrt:moment@2.8.1
+gildaspk:moment-languages
+steeve:moment-dateformat
+gildaspk:moment-datepicker
+aldeed:autoform@4.2.2
+gildaspk:autoform-moment-datepicker
+jeremy:selectize
+chhib:selectize-bootstrap-3
+comerc:autoform-selectize@2.1.7
+zimme:bootstrap-growl
+
+xolvio:cucumber@0.3.8
+
+mysessions:core

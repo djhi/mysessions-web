@@ -1,0 +1,24 @@
+<template name="home">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="jumbotron">
+        <h1>Mes fiches de présence <div></div></h1>
+        <p class="lead">Cette application a pour ambition de vous permettre de gérer les occurences de vos évènements récurrents: des cours, des assemblées générales, etc.</p>
+        <p class="lead">Pour le moment, elle ne propose que le suivi de la présence des participants.</p>
+        <p class="lead">
+          L'objectif est de proposer dès que possible des mécanismes adaptés à chaque type d'évènements:
+          <ul class="lead">
+            <li>Commentaires sur chaque participant</li>
+            <li>Notes d'élèves</li>
+            <li>etc.</li>
+          </ul>
+        </p>
+        {{#if currentUser}}
+        {{else}}
+        <a class="btn btn-lg btn-primary" href="{{pathFor 'atSignUp'}}">Créer un compte</a>
+        <a class="btn btn-lg btn-default" href="{{pathFor 'atSignIn'}}">Se connecter</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>

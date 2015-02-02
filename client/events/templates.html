@@ -1,0 +1,75 @@
+<template name="events">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="page-header">
+        <h1>Mes évènements</h1>
+        <div class="btn-group" role="group" aria-label="Barre d'outils">
+          <a href="{{pathFor 'eventsNew'}}" class="btn btn-primary">Nouvel évènement</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="list-group">
+        <a class="list-group-item {{#unless recurringEventId}}active{{/unless}}" href="{{pathFor 'events'}}" data-eventId="a">
+          Tous
+        </a>
+        {{#each recurringEvents}}
+          {{>_recurringEvent recurringEvent=this route='eventsByRecurringEvent'}}
+        {{/each}}
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="list-group">
+        {{#each eventOccurences}}
+          {{>_eventOccurence}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="_eventOccurence">
+  <a href="{{pathFor 'eventsEdit'}}" class="list-group-item">
+    {{dateFormat date format="LL"}}
+  </a>
+</template>
+
+<template name="eventsNew">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="page-header">
+        <h1>Nouvel évènement</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      {{>_eventsForm}}
+    </div>
+  </div>
+</template>
+
+<template name="eventsEdit">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="page-header">
+        <h1>{{eventOccurence.recurringEvent.name}}: {{eventOccurence.date}}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      {{>_eventsForm}}
+    </div>
+  </div>
+</template>
+
+<template name="_eventsForm">
+  {{#autoForm id="eventForm" collection=collection doc=eventOccurence type=operation}}
+    {{> afQuickField name="recurringEventId" type="selectize" options=getRecurringEvents selectizeOptions=selectizeOptions}}
+    {{> afQuickField name="date" type="moment-datepicker"}}
+    {{> _submit}}
+  {{/autoForm}}
+</template>
