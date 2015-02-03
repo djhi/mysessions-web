@@ -68,15 +68,30 @@
 
 <template name="_eventsForm">
   {{#autoForm id="eventForm" collection=collection doc=eventOccurence type=operation}}
-    <div class="form-group {{#if afFieldIsInvalid name='recurringEventId'}}has-error{{/if}}">
-      <label class="control-label">{{afFieldLabelText name='recurringEventId'}}</label>
-      {{> afFieldInput name='recurringEventId' type="selectize" firstOption=firstOption options=getRecurringEvents selectizeOptions=selectizeOptions}}
-      {{#if afFieldIsInvalid name='recurringEventId'}}
-      <span class="help-block">{{{afFieldMessage name='recurringEventId'}}}</span>
-      {{/if}}
-      <span class="help-block">{{{_ 'select-or-create-category-help'}}}</span>
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group {{#if afFieldIsInvalid name='recurringEventId'}}has-error{{/if}}">
+          <label class="control-label">{{afFieldLabelText name='recurringEventId'}}</label>
+          {{> afFieldInput name='recurringEventId' type="selectize" firstOption=firstOption options=getRecurringEvents selectizeOptions=selectizeOptions}}
+          {{#if afFieldIsInvalid name='recurringEventId'}}
+          <span class="help-block">{{{afFieldMessage name='recurringEventId'}}}</span>
+          {{/if}}
+          <span class="help-block">{{{_ 'select-or-create-category-help'}}}</span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group {{#if afFieldIsInvalid name='date'}}has-error{{/if}}">
+          <label class="control-label">{{afFieldLabelText name='date'}}</label>
+          <div class="input-group date">
+            {{> afFieldInput name='date' type="moment-datepicker"}}
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+          </div>
+          {{#if afFieldIsInvalid name='date'}}
+          <span class="help-block">{{{afFieldMessage name='date'}}}</span>
+          {{/if}}
+        </div>
+      </div>
     </div>
-    {{> afQuickField name="date" type="moment-datepicker"}}
     {{> _submit}}
   {{/autoForm}}
 </template>
