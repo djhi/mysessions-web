@@ -68,7 +68,14 @@
 
 <template name="_eventsForm">
   {{#autoForm id="eventForm" collection=collection doc=eventOccurence type=operation}}
-    {{> afQuickField name="recurringEventId" type="selectize" options=getRecurringEvents selectizeOptions=selectizeOptions}}
+    <div class="form-group {{#if afFieldIsInvalid name='recurringEventId'}}has-error{{/if}}">
+      <label class="control-label">{{afFieldLabelText name='recurringEventId'}}</label>
+      {{> afFieldInput name='recurringEventId' type="selectize" firstOption=firstOption options=getRecurringEvents selectizeOptions=selectizeOptions}}
+      {{#if afFieldIsInvalid name='recurringEventId'}}
+      <span class="help-block">{{{afFieldMessage name='recurringEventId'}}}</span>
+      {{/if}}
+      <span class="help-block">{{{_ 'select-or-create-category-help'}}}</span>
+    </div>
     {{> afQuickField name="date" type="moment-datepicker"}}
     {{> _submit}}
   {{/autoForm}}

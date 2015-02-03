@@ -7,3 +7,8 @@ Template._eventsForm.helpers
 
   selectizeOptions: ->
     create: true
+    persist: false
+    closeAfterSelect: true
+
+  firstOption: ->
+    TAPi18n.__ 'select-or-create-category'
