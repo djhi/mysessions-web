@@ -31,6 +31,9 @@ chhib:selectize-bootstrap-3
 comerc:autoform-selectize@2.1.7
 zimme:bootstrap-growl
 
+tap:i18n@1.3.2
+tap:i18n-ui
+
 xolvio:cucumber@0.3.8
 
 mysessions:core

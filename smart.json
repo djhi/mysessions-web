@@ -1,0 +1,8 @@
+{
+  "packages": {
+    "mysessions:core": {
+      "git": "https://github.com/djhi/mysessions-core.git",
+      "path": "../mysessions-core/"
+    }
+  }
+}

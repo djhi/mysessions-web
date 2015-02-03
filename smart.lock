@@ -1,0 +1,15 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "mysessions:core": {
+        "path": "../mysessions-core"
+      }
+    },
+    "packages": {
+      "mysessions:core": {
+        "path": "../mysessions-core"
+      }
+    }
+  }
+}
