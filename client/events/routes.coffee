@@ -43,6 +43,9 @@ Router.route '/events/:_id/edit',
       MS.SubsManager.subscribe "recurringEvents"
     ]
   data: ->
-    operation: 'update'
-    collection: MS.EventOccurences
-    participant: MS.EventOccurences.findOne @params._id
+    result =
+      operation: 'update'
+      collection: MS.EventOccurences
+      eventOccurence: MS.EventOccurences.findOne @params._id
+
+    result
