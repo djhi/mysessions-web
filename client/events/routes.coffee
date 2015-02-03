@@ -1,11 +1,18 @@
 Router.route '/events/new',
   name: 'eventsNew'
+  waitOn: ->  [
+      MS.SubsManager.subscribe "recurringEvents"
+    ]
   data: ->
     operation: 'insert'
     collection: MS.EventOccurences
 
 Router.route '/events',
   name: 'events'
+  waitOn: ->  [
+      MS.SubsManager.subscribe "eventOccurences"
+      MS.SubsManager.subscribe "recurringEvents"
+    ]
   data: ->
     data =
       recurringEvents: MS.RecurringEvents.find {}, sort: name: 1
@@ -16,6 +23,10 @@ Router.route '/events',
 Router.route '/events/:_id',
   name: 'eventsByRecurringEvent'
   template: 'events'
+  waitOn: ->  [
+      MS.SubsManager.subscribe "eventOccurences"
+      MS.SubsManager.subscribe "recurringEvents"
+    ]
   data: ->
     data =
       recurringEventId: @params._id
@@ -27,6 +38,10 @@ Router.route '/events/:_id',
 
 Router.route '/events/:_id/edit',
   name: 'eventsEdit'
+  waitOn: ->  [
+      MS.SubsManager.subscribe "eventOccurence", @params._id
+      MS.SubsManager.subscribe "recurringEvents"
+    ]
   data: ->
     operation: 'update'
     collection: MS.EventOccurences

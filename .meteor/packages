@@ -5,8 +5,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 accounts-ui
 accounts-password
 accounts-google
@@ -14,6 +12,7 @@ service-configuration
 
 multiply:iron-router-progress@=1.0.0-pre2
 zimme:iron-router-active@1.0.1
+meteorhacks:subs-manager
 useraccounts:bootstrap@1.5.0
 fourseven:scss@=1.0.0
 reywood:bootstrap3-sass@3.3.0_2

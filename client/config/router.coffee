@@ -1,3 +1,5 @@
+MS.SubsManager = new SubsManager()
+
 Router.plugin 'loading', loadingTemplate: 'loading'
 
 Router.configure
