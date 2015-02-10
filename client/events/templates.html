@@ -1,49 +1,30 @@
 <template name="events">
   <div class="row">
     <div class="col-xs-12">
-      <div class="page-header">
-        <h1>Mes évènements</h1>
-        <div class="btn-group" role="group" aria-label="Barre d'outils">
-          <a href="{{pathFor 'eventsNew'}}" class="btn btn-primary">Nouvel évènement</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-3">
-      <div class="list-group">
-        <a class="list-group-item {{#unless recurringEventId}}active{{/unless}}" href="{{pathFor 'events'}}" data-eventId="a">
-          Tous
-        </a>
-        {{#each recurringEvents}}
-          {{>_recurringEvent recurringEvent=this route='eventsByRecurringEvent'}}
-        {{/each}}
-      </div>
-    </div>
-    <div class="col-lg-9">
+      {{#unless eventOccurences.count}}
+        <p class="text-muted">Pas d'évènements.</p>
+      {{/unless}}
       <div class="list-group">
         {{#each eventOccurences}}
+        <div class="panel panel-default list-group-item">
+          <div class="panel-body">
           {{>_eventOccurence}}
+          </div>
+        </div>
         {{/each}}
       </div>
     </div>
+    <a href="{{pathFor 'eventsNew'}}" class="btn-primary-action btn btn-fab btn-raised btn-material-red"><i class="mdi-content-add"></i></a>
   </div>
 </template>
 
 <template name="_eventOccurence">
-  <a href="{{pathFor 'eventsEdit'}}" class="list-group-item">
-    {{dateFormat date format="LL"}}
+  <a href="{{pathFor 'eventsEdit'}}">
+    {{#if isActiveRoute regex="events$"}}{{recurringEvent.name}} -{{/if}} {{dateFormat date format="LL"}}
   </a>
 </template>
 
 <template name="eventsNew">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="page-header">
-        <h1>Nouvel évènement</h1>
-      </div>
-    </div>
-  </div>
   <div class="row">
     <div class="col-xs-12">
       {{>_eventsForm}}
@@ -52,13 +33,6 @@
 </template>
 
 <template name="eventsEdit">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="page-header">
-        <h1>{{eventOccurence.recurringEvent.name}}: {{dateFormat eventOccurence.date format="LL"}}</h1>
-      </div>
-    </div>
-  </div>
   <div class="row">
     <div class="col-xs-12">
       {{>_eventsForm}}
@@ -90,6 +64,14 @@
           <span class="help-block">{{{afFieldMessage name='date'}}}</span>
           {{/if}}
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{#afModal class="btn btn-flat btn-default" collection="MS.Participants" operation="insert" omitFields="userId,eventOccurencesIds,recurringEventsIds" buttonContent=addParticipantButton buttonClasses="btn btn-primary btn-flat"}}
+          {{_ 'addParticipant'}}
+        {{/afModal}}
+        {{> afQuickField name='participantsIds' type="select-checkbox" template="switches" options=getParticipants switchOptions=switchOptions}}
       </div>
     </div>
     {{> _submit}}

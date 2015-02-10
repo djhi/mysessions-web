@@ -1,9 +1,14 @@
 MS.SubsManager = new SubsManager()
 
-Router.plugin 'loading', loadingTemplate: 'loading'
+#Router.plugin 'loading', loadingTemplate: 'loading'
 
 Router.configure
+  progress : true
   progressDebug: false
+  progressTick : false
+  progressSpinner : true
+  progressDelay : 100
+
   layoutTemplate: 'layout'
   yieldTemplates:
     header:
@@ -17,6 +22,8 @@ Router.configure
     return
   unload: ->
     return
+  waitOn: ->
+    MS.SubsManager.subscribe "recurringEvents"
 
 Router.onBeforeAction AccountsTemplates.ensureSignedIn, except: [
   'atSignIn'
@@ -25,3 +32,7 @@ Router.onBeforeAction AccountsTemplates.ensureSignedIn, except: [
   'atResetPwd'
   'home'
 ]
+
+Meteor.startup ->
+  TAPi18n.setLanguage('fr').fail (error) ->
+    console.log error

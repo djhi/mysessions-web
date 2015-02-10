@@ -1,0 +1,65 @@
+// Override @primary color with one took from _colors.less
+// @primary: @deep-purple;
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+#mainContent {
+  padding-top: 70px;
+}
+
+.selectize-control.single .selectize-input, .selectize-input, .selectize-control.single .selectize-input.input-active {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  background-image: none;
+}
+
+.btn-primary-action {
+  position: fixed;
+  bottom: 3vh;
+  right: 3vh;
+}
+
+.list-group {
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 6px rgba(0, 0, 0, 0.12);
+}
+
+.panel.list-group-item {
+  margin-bottom: 0;
+  background-color: #FFF;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.panel.list-group-item:last-child {
+  border-bottom: none;
+}
+
+#velocity-status-widget {
+  top: auto;
+  width: auto;
+  height: auto;
+  bottom: 0;
+}
+
+.navbar .avatar {
+  display: inline-block;
+}
+
+#sidebar-toggle {
+  top: 10px;
+  margin-right: 10px;
+  font-size: 26px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: #FFF;
+
+  i {
+    left: -5px;
+    top: -10px;
+  }
+}

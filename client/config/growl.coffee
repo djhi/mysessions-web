@@ -1,3 +1,4 @@
+###
 $.growl false,
   mouse_over: "pause"
   placement:
@@ -6,3 +7,4 @@ $.growl false,
   animate:
     enter: 'animated fadeInDown'
     exit: 'animated fadeOutUp'
+###

@@ -8,9 +8,11 @@ AutoForm.addHooks null,
     return
 
   onSuccess: (operation, error, template) ->
-    $.growl 'Données sauvegardées', type: 'success'
+    $.snackbar content:'Données sauvegardées'
     return
 
   onError: (operation, error, template) ->
-    $.growl 'Une erreur est survenue', type: 'danger'
+    if !error.invalidKeys
+      $.snackbar content:'Une erreur est survenue', timeout: 0
+    console.log "Operation: #{operation}. #{error}"
     return

@@ -1,51 +1,57 @@
+MS.EventOccurences.setSidebarRoutes = ->
+  Session.set 'sidebar-route-all', 'events'
+  Session.set 'sidebar-route', 'eventsByRecurringEvent'
+
 Router.route '/events/new',
   name: 'eventsNew'
-  waitOn: ->  [
-      MS.SubsManager.subscribe "recurringEvents"
-    ]
+  waitOn: ->
+    MS.SubsManager.subscribe "participants"
   data: ->
     operation: 'insert'
     collection: MS.EventOccurences
+  onAfterAction: ->
+    Session.set 'title', 'Nouvel évènement'
+    MS.EventOccurences.setSidebarRoutes()
 
 Router.route '/events',
   name: 'events'
-  waitOn: ->  [
-      MS.SubsManager.subscribe "eventOccurences"
-      MS.SubsManager.subscribe "recurringEvents"
-    ]
+  waitOn: ->
+    MS.SubsManager.subscribe "eventOccurences"
   data: ->
-    data =
-      recurringEvents: MS.RecurringEvents.find {}, sort: name: 1
-      eventOccurences: MS.EventOccurences.find {}, sort: date: 1
-
-    return data
+    eventOccurences: MS.EventOccurences.findByUser Meteor.userId()
+  onAfterAction: ->
+    Session.set 'title', 'Evènements'
+    MS.EventOccurences.setSidebarRoutes()
 
 Router.route '/events/:_id',
   name: 'eventsByRecurringEvent'
   template: 'events'
-  waitOn: ->  [
-      MS.SubsManager.subscribe "eventOccurences"
-      MS.SubsManager.subscribe "recurringEvents"
-    ]
+  waitOn: ->
+    MS.SubsManager.subscribe "eventOccurences"
   data: ->
-    data =
-      recurringEventId: @params._id
-      recurringEvents: MS.RecurringEvents.find {}, sort: name: 1
-      eventOccurences: MS.EventOccurences.find
-        recurringEventId: @params._id
-      ,
-        sort: date: 1
+    recurringEventId: @params._id
+    eventOccurences: MS.EventOccurences.findByRecurringEvent @params._id
+  onAfterAction: ->
+    recurringEvent = MS.RecurringEvents.findOne @params._id
+    if recurringEvent
+      Session.set 'title', recurringEvent.name
+    MS.EventOccurences.setSidebarRoutes()
 
 Router.route '/events/:_id/edit',
   name: 'eventsEdit'
-  waitOn: ->  [
+  waitOn: -> [
       MS.SubsManager.subscribe "eventOccurence", @params._id
-      MS.SubsManager.subscribe "recurringEvents"
+      MS.SubsManager.subscribe "participants"
     ]
   data: ->
-    result =
+    data =
       operation: 'update'
       collection: MS.EventOccurences
       eventOccurence: MS.EventOccurences.findOne @params._id
 
-    result
+    return data
+  onAfterAction: ->
+    eventOccurence = MS.EventOccurences.findOne @params._id
+    if eventOccurence
+      Session.set 'title', eventOccurence.name()
+    MS.EventOccurences.setSidebarRoutes()

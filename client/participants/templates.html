@@ -1,33 +1,22 @@
 <template name="participants">
   <div class="row">
-    <div class="col-xs-12">
-      <div class="page-header">
-        <h1>Mes participants</h1>
-        <div class="btn-group" role="group" aria-label="Barre d'outils">
-          <a href="{{pathFor 'participantsNew'}}" class="btn btn-primary">Nouveau participant</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-3">
-      <div class="list-group">
-        <a class="list-group-item {{#unless eventId}}active{{/unless}}" href="{{pathFor 'participants'}}">
-          Tous
-        </a>
-        {{#each recurringEvents}}
-          {{>_recurringEvent route='participantsByEvent'}}
-        {{/each}}
-      </div>
-    </div>
-    <div class="col-lg-9">
+    <div class="col-lg-12">
+      {{#unless participants.count}}
+        <p class="text-muted">Pas de participants.</p>
+      {{/unless}}
+
       <div class="list-group">
         {{#each participants}}
-          {{>_participant}}
+          <div class="panel panel-default list-group-item">
+            <div class="panel-body">
+            {{>_participant}}
+            </div>
+          </div>
         {{/each}}
       </div>
     </div>
   </div>
+  <a href="{{pathFor 'participantsNew'}}" class="btn-primary-action btn btn-fab btn-raised btn-material-red"><i class="mdi-content-add"></i></a>
 </template>
 
 <template name="_participant">
@@ -39,13 +28,6 @@
 <template name="participantsNew">
   <div class="row">
     <div class="col-xs-12">
-      <div class="page-header">
-        <h1>Nouveau participant</h1>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
       {{>_participantsForm}}
     </div>
   </div>
@@ -54,23 +36,21 @@
 <template name="participantsEdit">
   <div class="row">
     <div class="col-xs-12">
-      <div class="page-header">
-        <h1>{{participant.lastName}}, {{participant.firstName}}</h1>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
       {{>_participantsForm}}
     </div>
   </div>
 </template>
 
 <template name="_participantsForm">
-  {{>quickForm
-      collection=collection
-      doc=participant
-      type=operation
-      omitFields="eventOccurencesIds, recurringEventsIds"
-      buttonContent="Enregistrer"}}
+  {{#autoForm id="participantForm" collection=collection doc=participant type=operation}}
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        {{> afQuickField name='lastName'}}
+      </div>
+      <div class="col-xs-12 col-md-6">
+        {{> afQuickField name='firstName'}}
+      </div>
+    </div>
+    {{> _submit}}
+  {{/autoForm}}
 </template>

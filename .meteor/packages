@@ -9,28 +9,34 @@ accounts-ui
 accounts-password
 accounts-google
 service-configuration
+less
+coffeescript
 
-multiply:iron-router-progress@=1.0.0-pre2
+multiply:iron-router-progress@1.0.1
 zimme:iron-router-active@1.0.1
 meteorhacks:subs-manager
-useraccounts:bootstrap@1.5.0
-fourseven:scss@=1.0.0
-reywood:bootstrap3-sass@3.3.0_2
-linto:fontawesome@4.2.6
 wizonesolutions:underscore-string
 
-mrt:moment@2.8.1
-gildaspk:moment-languages
+fezvrasta:bootstrap-material-design-noglyph
+zimme:bootstrap-growl
+useraccounts:bootstrap@1.6.1
+
+momentjs:moment@2.9.0
+gildaspk:moment-languages@2.9.0
 steeve:moment-dateformat
-gildaspk:moment-datepicker
+
 aldeed:autoform@4.2.2
+yogiben:autoform-modals@0.2.9
+ctjp:autoform-bootstrap-switch
+comerc:autoform-selectize@2.1.7
+gildaspk:moment-datepicker@0.0.2
 gildaspk:autoform-moment-datepicker
 jeremy:selectize
-comerc:autoform-selectize@2.1.7
-zimme:bootstrap-growl
 
 tap:i18n@1.3.2
 tap:i18n-ui
+
+bengott:avatar@0.7.3
 
 xolvio:cucumber@0.3.8
 
