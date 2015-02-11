@@ -1,5 +1,4 @@
 <template name="layout">
-  <div id="wrapper" class="toggled">
   <!--[if lt IE 9]>
     <div class="modal fade in" style="display:block">
       <div class="modal-dialog">
@@ -21,49 +20,44 @@
   <![endif]-->
 
   {{> yield region="header"}}
-  <div id="mainContent" class="container-fluid">
-    {{#if currentUser}}
-    {{> sidebar}}
-    {{/if}}
-    <div id="page-content-wrapper">
-      <div class="container-fluid">
-      {{> yield}}
-      </div>
-    </div>
+  <main>
+  <div class="container">
+    {{> yield}}
   </div>
-  </div>
+  </main>
   {{> autoformModals}}
   {{> yield region="footer"}}
 </template>
 
 <template name="header">
-  <header>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          {{#if currentUser}}
-          <button id="sidebar-toggle" class="btn btn-flat btn-fab btn-fab-mini btn-raised btn-sm pull-left"><i class="mdi-navigation-menu"></i></button>
-          {{/if}}
-          <a class="navbar-brand" href="{{Router.current.route.url}}">{{title}}</a>
-        </div>
+  <ul id="menuUser" class="dropdown-content">
+    <li><a class="waves-effect" href="{{pathFor 'profile'}}">Mon compte</a></li>
+    <li><a class="waves-effect btn-sign-out" href="#">Déconnection</a></li>
+  </ul>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div id="main-navbar">
-          <ul class="nav navbar-nav navbar-right">
-            {{#if currentUser}}
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{> avatar user=currentUser shape="circle" size="small"}} <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{pathFor 'profile'}}">Mon compte</a></li>
-                <li><a class="btn-sign-out" href="#">Déconnection</a></li>
-              </ul>
-            </li>
-            {{/if}}
-          </ul>
+  <div class="navbar-fixed">
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="container">
+        <div class="nav-wrapper">
+          <div class="col s12">
+            <a href="#!" class="brand-logo">{{title}}</a>
+            <ul class="right side-nav">
+              <li><a class="waves-effect" href="{{pathFor 'events'}}">Evènements</a></li>
+              <li><a class="waves-effect" href="{{pathFor 'participants'}}">Participants</a></li>
+              {{#if currentUser}}
+              <li>
+                <a class="dropdown-button waves-effect" href="#" data-activates="menuUser">
+                  {{> avatar user=currentUser shape="circle" size="small"}}
+                  <i class="mdi-navigation-arrow-drop-down right"></i>
+                </a>
+              </li>
+              {{/if}}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </nav>
+  </div>
 </template>
 
 <template name="sidebar">
@@ -85,23 +79,40 @@
   </div>
 </template>
 
-<template name="_recurringEvent">
-  <a
-    class="recurring-event"
-    href="{{pathFor route _id=recurringEvent._id}}">
-
-    <i class="mdi-action-bookmark-outline"></i>
-    {{recurringEvent.name}}
-  </a>
-</template>
-
 <template name="footer">
-  <footer class="footer">
-    <div class="container-fluid">
-      <p class="text-muted text-center">
-        Application réalisée avec <a href="http://meteor.com" target="_blank">Meteor</a>
-        par <a href="mailto:gildas.garcia@gmail.com">gildas.garcia@gmail.com</a>.
-      </p>
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h5 class="white-text">Gildas Garcia</h5>
+          <p class="grey-text text-lighten-4">Je suis un développeur autodidacte spécialisé dans le développement web et mobile avec Meteor.</p>
+        </div>
+        {{!--}}
+        <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+        {{--}}
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Créé par <a class="orange-text text-lighten-3" href="http://gildasgarcia.fr">Gildas Garcia</a>
+      </div>
     </div>
   </footer>
 </template>

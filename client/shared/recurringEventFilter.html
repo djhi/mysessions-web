@@ -1,0 +1,32 @@
+<template name="_recurringEventFilterButton">
+  <a class="waves-effect light-blue lighten-1 btn-floating btn-flat dropdown-button" data-activates="menuRecurringEvents">
+    <i class="mdi-content-filter-list"></i>
+  </a>
+</template>
+
+<template name="_recurringEventMenu">
+  <ul id='menuRecurringEvents' class='dropdown-content'>
+    <li>
+      <a href="{{pathFor 'events'}}">
+        <i class="mdi-action-book"></i>
+        Tous
+      </a>
+    </li>
+    <li class="divider"></li>
+    {{#each recurringEvents}}
+    <li class="{{isActivePath regex=this._id}}">
+      {{>_recurringEvent recurringEvent=this}}
+    </li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="_recurringEvent">
+  <a
+    class="recurring-event"
+    href="{{pathFor route _id=recurringEvent._id}}">
+
+    <i class="mdi-action-bookmark-outline"></i>
+    {{recurringEvent.name}}
+  </a>
+</template>

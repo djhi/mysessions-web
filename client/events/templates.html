@@ -1,32 +1,33 @@
 <template name="events">
-  <div class="row">
-    <div class="col-xs-12">
-      {{#unless eventOccurences.count}}
-        <p class="text-muted">Pas d'évènements.</p>
-      {{/unless}}
-      <div class="list-group">
-        {{#each eventOccurences}}
-        <div class="panel panel-default list-group-item">
-          <div class="panel-body">
-          {{>_eventOccurence}}
-          </div>
-        </div>
-        {{/each}}
-      </div>
+  <div class="collection with-header">
+    <div class="collection-header">
+      {{> _recurringEventMenu}}
+      <h4>
+        {{> _recurringEventFilterButton}}
+        {{$.Session.get 'title'}}
+      </h4>
     </div>
-    <a href="{{pathFor 'eventsNew'}}" class="btn-primary-action btn btn-fab btn-raised btn-material-red"><i class="mdi-content-add"></i></a>
+    {{#unless eventOccurences.count}}
+      <div class="collection-item">
+        Pas d'évènements.
+      </div>
+    {{/unless}}
+    {{#each eventOccurences}}
+      {{>_eventOccurence}}
+    {{/each}}
+    <a href="{{pathFor 'eventsNew'}}" class="btn-floating btn-large waves-effect waves-light red"><i class="mdi-content-add"></i></a>
   </div>
 </template>
 
 <template name="_eventOccurence">
-  <a href="{{pathFor 'eventsEdit'}}">
+  <a class="collection-item" href="{{pathFor 'eventsEdit'}}">
     {{#if isActiveRoute regex="events$"}}{{recurringEvent.name}} -{{/if}} {{dateFormat date format="LL"}}
   </a>
 </template>
 
 <template name="eventsNew">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col s12">
       {{>_eventsForm}}
     </div>
   </div>
@@ -34,7 +35,7 @@
 
 <template name="eventsEdit">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col s12">
       {{>_eventsForm}}
     </div>
   </div>
@@ -42,33 +43,27 @@
 
 <template name="_eventsForm">
   {{#autoForm id="eventForm" collection=collection doc=eventOccurence type=operation}}
+    {{> afFieldInput name='recurringEventId' type="hidden"}}
     <div class="row">
-      <div class="col-xs-12 col-md-6">
-        <div class="form-group {{#if afFieldIsInvalid name='recurringEventId'}}has-error{{/if}}">
-          <label class="control-label">{{afFieldLabelText name='recurringEventId'}}</label>
-          {{> afFieldInput name='recurringEventId' type="selectize" firstOption=firstOption options=getRecurringEvents selectizeOptions=selectizeOptions}}
-          {{#if afFieldIsInvalid name='recurringEventId'}}
-          <span class="help-block">{{{afFieldMessage name='recurringEventId'}}}</span>
-          {{/if}}
-          <span class="help-block">{{{_ 'select-or-create-category-help'}}}</span>
-        </div>
+      <div class="input-field col s12 m6">
+        <input type="text" name="typeaheadRecurringEvent" value="{{eventOccurence.recurringEvent.name}}" />
+        <label class="{{#if eventOccurence.recurringEventId}}active{{/if}}" for="typeaheadRecurringEvent">{{afFieldLabelText name='recurringEventId'}}</label>
+        {{#if afFieldIsInvalid name='recurringEventId'}}
+        <p class="help-block red-text">{{{afFieldMessage name='recurringEventId'}}}</p>
+        {{/if}}
       </div>
-      <div class="col-xs-12 col-md-6">
-        <div class="form-group {{#if afFieldIsInvalid name='date'}}has-error{{/if}}">
-          <label class="control-label">{{afFieldLabelText name='date'}}</label>
-          <div class="input-group date">
-            {{> afFieldInput name='date' type="moment-datepicker"}}
-            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-          </div>
-          {{#if afFieldIsInvalid name='date'}}
-          <span class="help-block">{{{afFieldMessage name='date'}}}</span>
-          {{/if}}
-        </div>
+      <div class="input-field col s12 m6">
+        <i class="mdi-action-event prefix"></i>
+        {{> afFieldInput name='date' type="pickadate"}}
+        <label for="date">{{afFieldLabelText name='date'}}</label>
+        {{#if afFieldIsInvalid name='date'}}
+        <p class="help-block red-text">{{{afFieldMessage name='date'}}}</p>
+        {{/if}}
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-12">
-        {{#afModal class="btn btn-flat btn-default" collection="MS.Participants" operation="insert" omitFields="userId,eventOccurencesIds,recurringEventsIds" buttonContent=addParticipantButton buttonClasses="btn btn-primary btn-flat"}}
+      <div class="col s12">
+        {{#afModal class="waves-effect btn-flat" collection="MS.Participants" operation="insert" omitFields="userId,eventOccurencesIds,recurringEventsIds" buttonContent=addParticipantButton buttonClasses="btn btn-primary btn-flat"}}
           {{_ 'addParticipant'}}
         {{/afModal}}
         {{> afQuickField name='participantsIds' type="select-checkbox" template="switches" options=getParticipants switchOptions=switchOptions}}

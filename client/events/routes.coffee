@@ -20,7 +20,7 @@ Router.route '/events',
   data: ->
     eventOccurences: MS.EventOccurences.findByUser Meteor.userId()
   onAfterAction: ->
-    Session.set 'title', 'Evènements'
+    Session.set 'title', 'Tous'
     MS.EventOccurences.setSidebarRoutes()
 
 Router.route '/events/:_id',
