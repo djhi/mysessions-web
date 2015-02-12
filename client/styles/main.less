@@ -11,6 +11,36 @@ main {
   padding-top: 5vh;
 }
 
+.nav-wrapper {
+  .btn-floating {
+    margin: 0 1rem 0 0;
+    float: left;
+    margin-top: 14px;
+
+    i {
+      color: #FFF;
+      line-height: 37px;
+      height: auto;
+    }
+  }
+}
+
+nav ul li {
+  height: 64px;  
+}
+
+.btn-flat:focus {
+  background-color: inherit;
+}
+
+.modal-content h4 .modal-close {
+  padding: 0;
+}
+
+.af-checkbox-group label {
+  top: auto;
+}
+
 .selectize-control.single .selectize-input, .selectize-input, .selectize-control.single .selectize-input.input-active {
   background-color: transparent;
   box-shadow: none;
@@ -41,7 +71,20 @@ main {
   top: auto;
   width: auto;
   height: auto;
-  bottom: 0;
+  bottom: 10px;
+  right: 10px;
+  -webkit-transform: none;
+  -webkit-transform-origin: none;
+  -o-transform: none;
+  -o-transform-origin: none;
+  transform: none;
+  transform-origin: none;
+  border: none;
+  background: transparent;
+
+  .velocity-icon-status {
+    border: 2px solid white;
+  }
 }
 .avatar {
   float: left;

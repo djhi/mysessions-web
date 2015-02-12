@@ -10,62 +10,29 @@ module.exports = ->
   @When /^I navigate to the home page$/, (callback) ->
     helper.world.browser
       .url(helper.world.mirrorUrl)
+      .pause(100)
       .call(callback)
     return
 
-  @Then /^I see a jumbotron explaining the app and links to "([^"]*)" and "([^"]*)"$/, (signUpPath, signInPath, callback) ->
-    helper.world.browser.getText '.jumbotron', (error, jumbotron) ->
-      assert jumbotron.length
+  @Then /^I see the button "([^"]*)" with href "([^"]*)"$/, (btnId, btnPath, callback) ->
+    path = "#{helper.world.mirrorUrl}#{btnPath}"
 
-    helper.world.browser.getAttribute 'a.btn-primary', 'href', (error, attr)->
-      assert _.endsWith attr, signUpPath
-
-    helper.world.browser.getAttribute 'a.btn-default', 'href', (error, attr)->
-      assert _.endsWith attr, signInPath
+    helper.world.browser.getAttribute "##{btnId}", 'href', (error, attr)->
+      assert.equal attr, path, "button #{btnId} should have href equal to #{path} but is #{attr}"
       callback()
-
     return
 
-  @Given /^I am an anonymous user$/, (callback) ->
-    callback()
-    return
-
-  @When /^I navigate to the home page$/, (callback) ->
+  @When /^I click the "([^"]*)" link$/, (btnId, callback) ->
     helper.world.browser
-      .url(helper.world.mirrorUrl)
-      .call(callback)
-    return
-
-  @When /^I click the sign-up link$/, (callback) ->
-    helper.world.browser
-      .click('a.btn-primary')
+      .click("##{btnId}")
+      .pause(100)
       .call(callback)
     return
 
   @Then /^I'm redirected to the "([^"]*)" page$/, (path, callback) ->
+    fullpath = "#{helper.world.mirrorUrl}#{path}"
+
     helper.world.browser.url (error, urlResult) ->
-      assert.equal _.endsWith(urlResult.value, path), true, "Should have been redirected to the #{path} page"
-      callback()
-    return
-
-  @Given /^I am an anonymous user$/, (callback) ->
-    callback()
-    return
-
-  @When /^I navigate to the home page$/, (callback) ->
-    helper.world.browser
-      .url(helper.world.mirrorUrl)
-      .call(callback)
-    return
-
-  @When /^I click the sign-in link$/, (callback) ->
-    helper.world.browser
-      .click('a.btn-default')
-      .call(callback)
-    return
-
-  @Then /^I'm redirected to the "([^"]*)" page$/, (path, callback) ->
-    helper.world.browser.url (error, urlResult) ->
-      assert.equal _.endsWith(urlResult.value, path), true, "Should have been redirected to the #{path} page"
+      assert.equal urlResult.value, fullpath, "Should have been redirected to the #{fullpath} page"
       callback()
     return

@@ -30,19 +30,9 @@ Template['afFormGroup_materialize'].helpers
     ]
     type = AutoForm.getInputType(self.afFieldInputAtts)
     self.skipLabel or _.contains(skipLabelTypes, type)
+
   materializeFieldLabelAtts: ->
     atts = _.clone(@afFieldLabelAtts)
-    classes = [
-      'item'
-      'item-input'
-    ]
-    if atts.type == 'placeholder'
-      atts.placeholderOnly = true
-    else if atts.type == 'stacked'
-      classes.push 'item-stacked-label'
-    else if atts.type == 'floating'
-      classes.push 'item-floating-label'
-    atts = AutoForm.Utility.addClass(atts, classes.join(' '))
     atts
 
 _.each [
@@ -101,7 +91,8 @@ _.each [
       # remove data-schema-key attribute because we put it
       # on the entire group
       delete atts['data-schema-key']
-      atts
+      console.log atts
+      return atts
     dsk: ->
       { 'data-schema-key': @atts['data-schema-key'] }
   return
@@ -130,51 +121,6 @@ Template['afBooleanRadioGroup_materialize'].helpers
     atts
   dsk: ->
     { 'data-schema-key': @atts['data-schema-key'] }
-
-# Custom Ionic input types:
-AutoForm.addInputType 'toggle',
-  template: 'afToggle'
-  valueOut: ->
-    ! !@is(':checked')
-  valueConverters:
-    'boolean': (val) ->
-      if val == 'true'
-        return true
-      else if val == 'false'
-        return false
-      val
-    'string': (val) ->
-      if val == true
-        return 'TRUE'
-      else if val == false
-        return 'FALSE'
-      val
-    'stringArray': (val) ->
-      if val == true
-        return [ 'TRUE' ]
-      else if val == false
-        return [ 'FALSE' ]
-      val
-    'number': (val) ->
-      if val == true
-        return 1
-      else if val == false
-        return 0
-      val
-    'numberArray': (val) ->
-      if val == true
-        return [ 1 ]
-      else if val == false
-        return [ 0 ]
-      val
-  contextAdjust: (context) ->
-    if context.value == true
-      context.atts.checked = ''
-    #don't add required attribute to checkboxes because some browsers assume that to mean that it must be checked, which is not what we mean by "required"
-    delete context.atts.required
-    context
-# Floating Labels: http://materializeframework.com/docs/components/#forms-floating-labels
-# 'label-type': 'floating'
 
 AutoForm.addInputType 'pickadate',
   template: 'afPickadate'
@@ -205,10 +151,14 @@ Template.afFormGroup_materialize.destroyed = ->
   return
 
 Template['afPickadate'].rendered = ->
-  @$('input').pickadate
-    formatSubmit: 'yyyy/mm/dd',
-    hiddenName: true
-    closeOnSelect: true
+  @$('input')
+    .pickadate(
+      formatSubmit: 'yyyy/mm/dd',
+      hiddenName: true
+      closeOnSelect: true)
+    .on('change', ->
+      $(this).pickadate('picker').close()
+    )
 
   if @data.value
     @$('input').parent().find('label').addClass 'active'

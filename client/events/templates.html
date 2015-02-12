@@ -63,10 +63,13 @@
     </div>
     <div class="row">
       <div class="col s12">
-        {{#afModal class="waves-effect btn-flat" collection="MS.Participants" operation="insert" omitFields="userId,eventOccurencesIds,recurringEventsIds" buttonContent=addParticipantButton buttonClasses="btn btn-primary btn-flat"}}
+        <h5>Participants</h5>
+      </div>
+      <div class="col s12">
+        {{#afModal class="waves-effect btn grey" collection="MS.Participants" operation="insert" omitFields="userId,eventOccurencesIds,recurringEventsIds" buttonContent=addParticipantButton}}
           {{_ 'addParticipant'}}
         {{/afModal}}
-        {{> afQuickField name='participantsIds' type="select-checkbox" template="switches" options=getParticipants switchOptions=switchOptions}}
+        {{> afQuickField name='participantsIds' label=false type="select-checkbox" options=getParticipants}}
       </div>
     </div>
     {{> _submit}}

@@ -40,16 +40,18 @@
 </template>
 
 <template name="afFormGroup_materialize">
-  {{#if skipLabel}}
-    {{> afFieldInput this.afFieldInputAtts}}
-  {{else}}
-    {{> afFieldInput this.afFieldInputAtts}}
-    <label {{materializeFieldLabelAtts}}>{{#if this.labelText}}{{this.labelText}}{{else}}{{afFieldLabelText name=this.atts.name}}{{/if}}
-    </label>
-  {{/if}}
-  {{#if afFieldIsInvalid name=this.atts.name}}
-    <div class="item item-text-wrap assertive"><i class="icon ion-android-alert"></i> {{{afFieldMessage name=this.atts.name}}}</div>
-  {{/if}}
+  <div class="input-field">
+    {{#if skipLabel}}
+      {{> afFieldInput this.afFieldInputAtts}}
+    {{else}}
+      {{> afFieldInput this.afFieldInputAtts}}
+      <label for="{{this.atts.name}}" {{materializeFieldLabelAtts}}>{{#if this.labelText}}{{this.labelText}}{{else}}{{afFieldLabelText name=this.atts.name}}{{/if}}
+      </label>
+    {{/if}}
+    {{#if afFieldIsInvalid name=this.atts.name}}
+      <div class="red-text"><i class="mdi-alert-warning"></i> {{{afFieldMessage name=this.atts.name}}}</div>
+    {{/if}}
+  </div>
 </template>
 
 <template name="afObjectField_materialize">
@@ -104,13 +106,11 @@
 </template>
 
 <template name="afCheckboxGroup_materialize">
-  <div class="af-checkbox-group" {{dsk}}>
+  <div class="af-checkbox-group collection" {{dsk}}>
     {{#each this.items}}
-      <div class="item item-checkbox">
-        <label class="checkbox">
-          <input type="checkbox" value="{{this.value}}" {{atts}} />
-        </label>
-        {{this.label}}
+      <div class="collection-item">
+        <input type="checkbox" id="{{this.value}}" value="{{this.value}}" {{atts}} />
+        <label for="{{this.value}}">{{this.label}}</label>
       </div>
     {{/each}}
   </div>
@@ -242,18 +242,6 @@
       {{/each}}
     </select>
   </label>
-</template>
-
-<template name="afToggle">
-  <div class="item item-toggle item-text-wrap">
-    {{afFieldLabelText name=this.name}}
-    <label class="toggle">
-      <input type="checkbox" value="true" {{atts}} />
-      <div class="track">
-        <div class="handle"></div>
-      </div>
-    </label>
-  </div>
 </template>
 
 <template name="afPickadate">

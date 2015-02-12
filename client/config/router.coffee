@@ -10,6 +10,7 @@ Router.configure
   progressDelay : 100
 
   layoutTemplate: 'layout'
+  loadingTemplate: '_loading'
   yieldTemplates:
     header:
       to: 'header'
@@ -32,6 +33,16 @@ Router.onBeforeAction AccountsTemplates.ensureSignedIn, except: [
   'atResetPwd'
   'home'
 ]
+
+Router.route '/loading',
+  name: 'loading'
+  template: '_loading'
+
+Router.route '/sign-out',
+  name: 'signout'
+  action: ->
+    Meteor.logout =>
+      @redirect 'home'
 
 Meteor.startup ->
   TAPi18n.setLanguage('fr').fail (error) ->

@@ -1,2 +1,2 @@
-Template.header.rendered = ->
+Template.userMenu.rendered = ->
   @$(".dropdown-button").dropdown hover: false, constrain_width: false

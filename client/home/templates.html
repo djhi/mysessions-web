@@ -1,24 +1,21 @@
 <template name="home">
   <div class="row">
-    <div class="col-xs-12">
-      <div class="jumbotron">
-        <h1>Mes fiches de présence <div></div></h1>
-        <p class="lead">Cette application a pour ambition de vous permettre de gérer les occurences de vos évènements récurrents: des cours, des assemblées générales, etc.</p>
-        <p class="lead">Pour le moment, elle ne propose que le suivi de la présence des participants.</p>
-        <p class="lead">
-          L'objectif est de proposer dès que possible des mécanismes adaptés à chaque type d'évènements:
-          <ul class="lead">
-            <li>Commentaires sur chaque participant</li>
-            <li>Notes d'élèves</li>
-            <li>etc.</li>
-          </ul>
-        </p>
-        {{#if currentUser}}
-        {{else}}
-        <a class="btn btn-lg btn-primary" href="{{pathFor 'atSignUp'}}">Créer un compte</a>
-        <a class="btn btn-lg btn-default" href="{{pathFor 'atSignIn'}}">Se connecter</a>
-        {{/if}}
-      </div>
+    <div class="col s12">
+      <h1>Mes fiches de présence</h1>
+      <p class="flow-text">Cette application a pour ambition de vous permettre de gérer les occurences de vos évènements récurrents: des cours, des assemblées générales, etc.</p>
+      <p class="flow-text">Pour le moment, elle ne propose que le suivi de la présence des participants.</p>
+      <p class="flow-text">
+        L'objectif est de proposer dès que possible des mécanismes adaptés à chaque type d'évènements:
+      </p>
+      <ul>
+        <li><p class="flow-text"><i class="mdi-content-remove"></i> Commentaires sur chaque participant</p></li>
+        <li><p class="flow-text"><i class="mdi-content-remove"></i> Notes d'élèves</p></li>
+        <li><p class="flow-text"><i class="mdi-content-remove"></i> etc.</p></li>
+      </ul>
+      {{#unless currentUser}}
+      <a id="btnSignUp" class="btn btn-sign-up blue" href="{{pathFor 'atSignUp'}}">Créer un compte</a>
+      <a id="btnSignIn" class="btn btn-sign-in grey" href="{{pathFor 'atSignIn'}}">Se connecter</a>
+      {{/unless}}
     </div>
   </div>
 </template>

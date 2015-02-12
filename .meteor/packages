@@ -27,7 +27,7 @@ gildaspk:moment-languages@2.9.0
 steeve:moment-dateformat
 
 aldeed:autoform@4.2.2
-yogiben:autoform-modals@0.2.9
+gildaspk:autoform-modals-materialize@0.0.1
 comerc:autoform-typeahead@1.0.1
 gildaspk:moment-datepicker@0.0.2
 gildaspk:autoform-moment-datepicker

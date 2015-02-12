@@ -10,6 +10,7 @@ Router.route '/events/new',
     operation: 'insert'
     collection: MS.EventOccurences
   onAfterAction: ->
+    Session.set 'returnUrl', '/events'
     Session.set 'title', 'Nouvel évènement'
     MS.EventOccurences.setSidebarRoutes()
 
@@ -20,6 +21,7 @@ Router.route '/events',
   data: ->
     eventOccurences: MS.EventOccurences.findByUser Meteor.userId()
   onAfterAction: ->
+    Session.set 'returnUrl', undefined
     Session.set 'title', 'Tous'
     MS.EventOccurences.setSidebarRoutes()
 
@@ -32,6 +34,7 @@ Router.route '/events/:_id',
     recurringEventId: @params._id
     eventOccurences: MS.EventOccurences.findByRecurringEvent @params._id
   onAfterAction: ->
+    Session.set 'returnUrl', '/events'
     recurringEvent = MS.RecurringEvents.findOne @params._id
     if recurringEvent
       Session.set 'title', recurringEvent.name
@@ -51,6 +54,7 @@ Router.route '/events/:_id/edit',
 
     return data
   onAfterAction: ->
+    Session.set 'returnUrl', '/events'
     eventOccurence = MS.EventOccurences.findOne @params._id
     if eventOccurence
       Session.set 'title', eventOccurence.name()
