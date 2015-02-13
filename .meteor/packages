@@ -12,14 +12,13 @@ service-configuration
 less
 coffeescript
 
-multiply:iron-router-progress@1.0.1
 zimme:iron-router-active@1.0.1
 meteorhacks:subs-manager
 wizonesolutions:underscore-string
 raix:handlebar-helpers@0.2.4
 d0minikk:materialize-meteor
-useraccounts:core@1.6.1
-useraccounts:materialize@1.6.1
+useraccounts:core@1.7.0
+useraccounts:materialize@1.7.0
 gildaspk:autoform-materialize
 
 momentjs:moment@2.9.0

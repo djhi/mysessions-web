@@ -3,12 +3,6 @@ MS.SubsManager = new SubsManager()
 #Router.plugin 'loading', loadingTemplate: 'loading'
 
 Router.configure
-  progress : true
-  progressDebug: false
-  progressTick : false
-  progressSpinner : true
-  progressDelay : 100
-
   layoutTemplate: 'layout'
   loadingTemplate: '_loading'
   yieldTemplates:
