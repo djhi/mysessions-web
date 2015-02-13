@@ -45,11 +45,16 @@
       {{> afFieldInput this.afFieldInputAtts}}
     {{else}}
       {{> afFieldInput this.afFieldInputAtts}}
-      <label for="{{this.atts.name}}" {{materializeFieldLabelAtts}}>{{#if this.labelText}}{{this.labelText}}{{else}}{{afFieldLabelText name=this.atts.name}}{{/if}}
+      <label for="{{this.atts.name}}" {{materializeFieldLabelAtts}}>
+        {{#if this.labelText}}{{this.labelText}}
+        {{else}}{{afFieldLabelText name=this.atts.name}}
+        {{/if}}
       </label>
     {{/if}}
     {{#if afFieldIsInvalid name=this.atts.name}}
-      <div class="red-text"><i class="mdi-alert-warning"></i> {{{afFieldMessage name=this.atts.name}}}</div>
+      <div class="red-text">
+        <i class="mdi-alert-warning"></i> {{{afFieldMessage name=this.atts.name}}}
+      </div>
     {{/if}}
   </div>
 </template>
