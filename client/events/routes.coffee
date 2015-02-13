@@ -1,7 +1,3 @@
-MS.EventOccurences.setSidebarRoutes = ->
-  Session.set 'sidebar-route-all', 'events'
-  Session.set 'sidebar-route', 'eventsByRecurringEvent'
-
 Router.route '/events/new',
   name: 'eventsNew'
   waitOn: ->
@@ -12,7 +8,6 @@ Router.route '/events/new',
   onAfterAction: ->
     Session.set 'returnUrl', '/events'
     Session.set 'title', 'Nouvel évènement'
-    MS.EventOccurences.setSidebarRoutes()
 
 Router.route '/events',
   name: 'events'
@@ -23,7 +18,6 @@ Router.route '/events',
   onAfterAction: ->
     Session.set 'returnUrl', undefined
     Session.set 'title', 'Tous'
-    MS.EventOccurences.setSidebarRoutes()
 
 Router.route '/events/:_id',
   name: 'eventsByRecurringEvent'
@@ -38,7 +32,6 @@ Router.route '/events/:_id',
     recurringEvent = MS.RecurringEvents.findOne @params._id
     if recurringEvent
       Session.set 'title', recurringEvent.name
-    MS.EventOccurences.setSidebarRoutes()
 
 Router.route '/events/:_id/edit',
   name: 'eventsEdit'
@@ -58,4 +51,3 @@ Router.route '/events/:_id/edit',
     eventOccurence = MS.EventOccurences.findOne @params._id
     if eventOccurence
       Session.set 'title', eventOccurence.name()
-    MS.EventOccurences.setSidebarRoutes()

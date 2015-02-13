@@ -1,26 +1,27 @@
 <template name="participants">
-  <div class="row">
-    <div class="col-lg-12">
-      {{#unless participants.count}}
-        <p class="text-muted">Pas de participants.</p>
-      {{/unless}}
-
-      <div class="list-group">
-        {{#each participants}}
-          <div class="panel panel-default list-group-item">
-            <div class="panel-body">
-            {{>_participant}}
-            </div>
-          </div>
-        {{/each}}
-      </div>
+  <div class="collection with-header">
+    <div class="collection-header">
+      {{> _recurringEventMenu allRoute='participants' categoryRoute='participantsByEvent'}}
+      <h4>
+        {{> _recurringEventFilterButton}}
+        {{$.Session.get 'title'}}
+      </h4>
     </div>
+    {{#unless participants.count}}
+      <div class="collection-item">
+        Pas de participants.
+      </div>
+    {{/unless}}
+
+    {{#each participants}}
+      {{>_participant}}
+    {{/each}}
+  <a href="{{pathFor 'participantsNew'}}" class="btn-floating btn-large waves-effect waves-light red"><i class="mdi-content-add"></i></a>
   </div>
-  <a href="{{pathFor 'participantsNew'}}" class="btn-primary-action btn btn-fab btn-raised btn-material-red"><i class="mdi-content-add"></i></a>
 </template>
 
 <template name="_participant">
-  <a class="list-group-item participant" href="{{pathFor 'participantsEdit'}}">
+  <a class="collection-item participant" href="{{pathFor 'participantsEdit'}}">
     {{lastName}}, {{firstName}}
   </a>
 </template>
@@ -44,10 +45,10 @@
 <template name="_participantsForm">
   {{#autoForm id="participantForm" collection=collection doc=participant type=operation}}
     <div class="row">
-      <div class="col-xs-12 col-md-6">
+      <div class="input-field col s12 m6">
         {{> afQuickField name='lastName'}}
       </div>
-      <div class="col-xs-12 col-md-6">
+      <div class="input-field col s12 m6">
         {{> afQuickField name='firstName'}}
       </div>
     </div>

@@ -1,7 +1,3 @@
-MS.Participants.setSidebarRoutes = ->
-  Session.set 'sidebar-route-all', 'participants'
-  Session.set 'sidebar-route', 'participantsByEvent'
-
 Router.route '/participants',
   name: 'participants'
   waitOn: ->
@@ -10,7 +6,6 @@ Router.route '/participants',
     participants: MS.Participants.findByUser Meteor.userId()
   onAfterAction: ->
     Session.set 'title', 'Participants'
-    MS.Participants.setSidebarRoutes()
 
 Router.route '/events/:_id/participants',
   name: 'participantsByEvent'
@@ -21,10 +16,10 @@ Router.route '/events/:_id/participants',
     eventId: @params._id
     participants: MS.Participants.findByRecurringEvent @params._id
   onAfterAction: ->
+    Session.set 'returnUrl', '/participants'
     recurringEvent = MS.RecurringEvents.findOne @params._id
     if recurringEvent
       Session.set 'title', recurringEvent.name
-    MS.Participants.setSidebarRoutes()
 
 Router.route '/participants/new',
   name: 'participantsNew'
@@ -32,8 +27,8 @@ Router.route '/participants/new',
     operation: 'insert'
     collection: MS.Participants
   onAfterAction: ->
+    Session.set 'returnUrl', '/participants'
     Session.set 'title', 'Nouveau participant'
-    MS.Participants.setSidebarRoutes()
 
 Router.route '/participants/:_id',
   name: 'participantsEdit'
@@ -42,7 +37,7 @@ Router.route '/participants/:_id',
     collection: MS.Participants
     participant: MS.Participants.findOne @params._id
   onAfterAction: ->
+    Session.set 'returnUrl', '/participants'
     participant = MS.Participants.findOne @params._id
     if participant
       Session.set 'title', participant.name()
-    MS.Participants.setSidebarRoutes()

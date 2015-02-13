@@ -1,7 +1,7 @@
 <template name="events">
   <div class="collection with-header">
     <div class="collection-header">
-      {{> _recurringEventMenu}}
+      {{> _recurringEventMenu allRoute='events' categoryRoute='eventsByRecurringEvent'}}
       <h4>
         {{> _recurringEventFilterButton}}
         {{$.Session.get 'title'}}
@@ -20,7 +20,7 @@
 </template>
 
 <template name="_eventOccurence">
-  <a class="collection-item" href="{{pathFor 'eventsEdit'}}">
+  <a class="collection-item event-occurence" href="{{pathFor 'eventsEdit'}}">
     {{#if isActiveRoute regex="events$"}}{{recurringEvent.name}} -{{/if}} {{dateFormat date format="LL"}}
   </a>
 </template>

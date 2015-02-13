@@ -7,7 +7,7 @@
 <template name="_recurringEventMenu">
   <ul id='menuRecurringEvents' class='dropdown-content'>
     <li>
-      <a href="{{pathFor 'events'}}">
+      <a href="{{pathFor allRoute}}">
         <i class="mdi-action-book"></i>
         Tous
       </a>
@@ -15,7 +15,7 @@
     <li class="divider"></li>
     {{#each recurringEvents}}
     <li class="{{isActivePath regex=this._id}}">
-      {{>_recurringEvent recurringEvent=this}}
+      {{>_recurringEvent categoryRoute=../categoryRoute recurringEvent=this}}
     </li>
     {{/each}}
   </ul>
@@ -24,7 +24,7 @@
 <template name="_recurringEvent">
   <a
     class="recurring-event"
-    href="{{pathFor route _id=recurringEvent._id}}">
+    href="{{pathFor categoryRoute _id=recurringEvent._id}}">
 
     <i class="mdi-action-bookmark-outline"></i>
     {{recurringEvent.name}}
