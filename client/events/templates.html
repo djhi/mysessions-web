@@ -1,27 +1,23 @@
 <template name="events">
-  <div class="collection with-header">
-    <div class="collection-header">
-      {{> _recurringEventMenu allRoute='events' categoryRoute='eventsByRecurringEvent'}}
-      <h4>
-        {{> _recurringEventFilterButton}}
-        {{$.Session.get 'title'}}
-      </h4>
-    </div>
-    {{#unless eventOccurences.count}}
-      <div class="collection-item">
-        Pas d'évènements.
-      </div>
-    {{/unless}}
-    {{#each eventOccurences}}
-      {{>_eventOccurence}}
-    {{/each}}
-    <a href="{{pathFor 'eventsNew'}}" class="btn-floating btn-large waves-effect waves-light red"><i class="mdi-content-add"></i></a>
-  </div>
+  {{> collectionByRecurringEvent
+    allRoute="events"
+    categoryRoute="eventsByRecurringEvent"
+    newRoute="eventsNew"
+    title=title
+    emptyText="Pas d'évènements."
+    items=eventOccurences
+    itemTemplate="_eventOccurence"
+  }}
 </template>
 
 <template name="_eventOccurence">
   <a class="collection-item event-occurence" href="{{pathFor 'eventsEdit'}}">
-    {{#if isActiveRoute regex="events$"}}{{recurringEvent.name}} -{{/if}} {{dateFormat date format="LL"}}
+    {{dateFormat date format="LL"}}
+    {{#if isActiveRoute regex="events$"}}
+    <div>
+        <span class="tag shades-text text-white grey darken-1">{{recurringEvent.name}}</span>
+    </div>
+    {{/if}}
   </a>
 </template>
 
@@ -61,6 +57,7 @@
         {{/if}}
       </div>
     </div>
+    {{#if recurringEventId}}
     <div class="row">
       <div class="col s12">
         <h5>Participants</h5>
@@ -69,9 +66,13 @@
         {{#afModal class="waves-effect btn grey" collection="MS.Participants" operation="insert" omitFields="userId,eventOccurencesIds,recurringEventsIds" buttonContent=addParticipantButton}}
           {{_ 'addParticipant'}}
         {{/afModal}}
+        <p class="blue-text">Cochez les personnes présentes</p>
         {{> afQuickField name='participantsIds' label=false type="select-checkbox" options=getParticipants}}
       </div>
     </div>
+    {{else}}
+    <p class="blue-text">Choisissez un évènement recurrent pour sélectionner des participants</p>
+    {{/if}}
     {{> _submit}}
   {{/autoForm}}
 </template>

@@ -1,0 +1,32 @@
+<template name="collectionByRecurringEvent">
+  {{!--}}
+    Parameters:
+      allRoute: the name of the route which display all items
+      categoryRoute: the name of the route which display items filtered by recurring event
+      newRoute: the name of the route which display the item creation form
+
+      items: the items to display (should be a Mongo.Collection cursor)
+      itemTemplate: the template used to display each item
+      title: the collection header title
+      emptyText: the text to display when no items are found
+  {{--}}
+  <div class="collection with-header">
+    <div class="collection-header">
+      {{> _recurringEventMenu allRoute=allRoute categoryRoute=categoryRoute}}
+      <h4>
+        {{> _recurringEventFilterButton}}
+        {{title}}
+        <span class="badge">{{items.count}}</span>
+      </h4>
+    </div>
+    {{#unless items.count}}
+      <div class="collection-item">
+        {{emptyText}}
+      </div>
+    {{/unless}}
+    {{#each items}}
+      {{> Template.dynamic template=../itemTemplate data=this}}
+    {{/each}}
+    <a href="{{pathFor newRoute}}" class="btn-floating btn-large waves-effect waves-light red"><i class="mdi-content-add"></i></a>
+  </div>
+</template>

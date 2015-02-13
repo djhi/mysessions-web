@@ -1,11 +1,24 @@
 Template._eventsForm.helpers
+  recurringEventId: ->
+    recurringEventId = AutoForm.getFieldValue 'eventForm', 'recurringEventId'
+
+    if !!recurringEventId
+      MS.SubsManager.subscribe 'participants', recurringEventId
+
+    return recurringEventId
+
   getParticipants: ->
-    cursor = MS.Participants.findByUser Meteor.userId()
+    recurringEventId = AutoForm.getFieldValue 'eventForm', 'recurringEventId'
 
-    result = cursor.map (item) ->
-      return label: item.name(), value: item._id
+    if !!recurringEventId
+      cursor = MS.Participants.findByRecurringEvent recurringEventId
 
-    return result
+      result = cursor.map (item) ->
+        return label: item.name(), value: item._id
+
+      return result
+    else
+      return []
 
   firstOption: ->
     TAPi18n.__ 'select-or-create-category'

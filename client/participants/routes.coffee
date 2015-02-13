@@ -4,7 +4,9 @@ Router.route '/participants',
     MS.SubsManager.subscribe "participants"
   data: ->
     participants: MS.Participants.findByUser Meteor.userId()
+    title:'Tous'
   onAfterAction: ->
+    Session.set 'returnUrl', undefined
     Session.set 'title', 'Participants'
 
 Router.route '/events/:_id/participants',
@@ -13,13 +15,15 @@ Router.route '/events/:_id/participants',
   waitOn: ->
     MS.SubsManager.subscribe "participants"
   data: ->
-    eventId: @params._id
-    participants: MS.Participants.findByRecurringEvent @params._id
-  onAfterAction: ->
-    Session.set 'returnUrl', '/participants'
     recurringEvent = MS.RecurringEvents.findOne @params._id
     if recurringEvent
-      Session.set 'title', recurringEvent.name
+      title = recurringEvent.name
+
+    eventId: @params._id
+    participants: MS.Participants.findByRecurringEvent @params._id
+    title: title
+  onAfterAction: ->
+    Session.set 'returnUrl', '/participants'
 
 Router.route '/participants/new',
   name: 'participantsNew'

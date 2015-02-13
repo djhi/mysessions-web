@@ -1,7 +1,5 @@
 Router.route '/events/new',
   name: 'eventsNew'
-  waitOn: ->
-    MS.SubsManager.subscribe "participants"
   data: ->
     operation: 'insert'
     collection: MS.EventOccurences
@@ -15,9 +13,10 @@ Router.route '/events',
     MS.SubsManager.subscribe "eventOccurences"
   data: ->
     eventOccurences: MS.EventOccurences.findByUser Meteor.userId()
+    title:'Tous'
   onAfterAction: ->
     Session.set 'returnUrl', undefined
-    Session.set 'title', 'Tous'
+    Session.set 'title', 'Evènements'
 
 Router.route '/events/:_id',
   name: 'eventsByRecurringEvent'
@@ -25,13 +24,16 @@ Router.route '/events/:_id',
   waitOn: ->
     MS.SubsManager.subscribe "eventOccurences"
   data: ->
-    recurringEventId: @params._id
-    eventOccurences: MS.EventOccurences.findByRecurringEvent @params._id
-  onAfterAction: ->
-    Session.set 'returnUrl', '/events'
     recurringEvent = MS.RecurringEvents.findOne @params._id
     if recurringEvent
-      Session.set 'title', recurringEvent.name
+      title = recurringEvent.name
+
+    recurringEventId: @params._id
+    eventOccurences: MS.EventOccurences.findByRecurringEvent @params._id
+    title: title
+  onAfterAction: ->
+    Session.set 'returnUrl', '/events'
+    Session.set 'title', 'Evènements'
 
 Router.route '/events/:_id/edit',
   name: 'eventsEdit'

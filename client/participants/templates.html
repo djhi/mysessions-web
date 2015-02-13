@@ -1,28 +1,25 @@
 <template name="participants">
-  <div class="collection with-header">
-    <div class="collection-header">
-      {{> _recurringEventMenu allRoute='participants' categoryRoute='participantsByEvent'}}
-      <h4>
-        {{> _recurringEventFilterButton}}
-        {{$.Session.get 'title'}}
-      </h4>
-    </div>
-    {{#unless participants.count}}
-      <div class="collection-item">
-        Pas de participants.
-      </div>
-    {{/unless}}
-
-    {{#each participants}}
-      {{>_participant}}
-    {{/each}}
-  <a href="{{pathFor 'participantsNew'}}" class="btn-floating btn-large waves-effect waves-light red"><i class="mdi-content-add"></i></a>
-  </div>
+  {{> collectionByRecurringEvent
+    allRoute="participants"
+    categoryRoute="participantsByEvent"
+    newRoute="participantsNew"
+    title=title
+    emptyText="Pas de participants."
+    items=participants
+    itemTemplate="_participant"
+  }}
 </template>
 
 <template name="_participant">
-  <a class="collection-item participant" href="{{pathFor 'participantsEdit'}}">
+  <a class="collection-item participant clearfix" href="{{pathFor 'participantsEdit'}}">
     {{lastName}}, {{firstName}}
+    {{#if isActiveRoute regex="participants$"}}
+    <div>
+      {{#each recurringEvents}}
+        <span class="tag shades-text text-white grey darken-1">{{name}}</span>
+      {{/each}}
+    </div>
+    {{/if}}
   </a>
 </template>
 
@@ -50,6 +47,15 @@
       </div>
       <div class="input-field col s12 m6">
         {{> afQuickField name='firstName'}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <h5>Evènements récurrents</h5>
+      </div>
+      <div class="col s12">
+        <p class="blue-text">Cochez les évènements récuurrents auxquels cette personne participe.</p>
+        {{> afQuickField name='recurringEventsIds' label=false type="select-checkbox" options=getRecurringEvents}}
       </div>
     </div>
     {{> _submit}}

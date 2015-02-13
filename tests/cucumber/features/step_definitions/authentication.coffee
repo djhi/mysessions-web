@@ -6,7 +6,7 @@ module.exports = ->
   @Given /^I am an anonymous user on "([^"]*)" page$/, (path, callback) ->
     helper.world.browser
       .url(helper.world.mirrorUrl + path)
-      .pause(100)
+      .pause(250)
       .call(callback)
     return
 

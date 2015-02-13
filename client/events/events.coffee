@@ -11,12 +11,15 @@ Template._eventsForm.events
   'keyup [name="typeaheadRecurringEvent"]': (event, template) ->
     if event.keyCode == 9 then return
     template.$('[name="recurringEventId"]').val template.$(event.currentTarget).val()
+    AutoForm.invalidateFormContext 'eventForm'
     return
 
   'typeahead:selected [name="typeaheadRecurringEvent"]': (event, template, item) ->
     template.$('[name="recurringEventId"]').val item.value
+    AutoForm.invalidateFormContext 'eventForm'
     return
 
   'typeahead:autocompleted [name="typeaheadRecurringEvent"]': (event, template, item) ->
     template.$('[name="recurringEventId"]').val item.value
+    AutoForm.invalidateFormContext 'eventForm'
     return

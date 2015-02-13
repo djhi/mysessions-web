@@ -91,7 +91,6 @@ _.each [
       # remove data-schema-key attribute because we put it
       # on the entire group
       delete atts['data-schema-key']
-      console.log atts
       return atts
     dsk: ->
       { 'data-schema-key': @atts['data-schema-key'] }
