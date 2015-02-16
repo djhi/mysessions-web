@@ -8,7 +8,12 @@ module.exports = ->
     world.wdio = Package['xolvio:webdriver'].wdio
     world.mirrorUrl = world.cucumber.mirror.rootUrl
 
-    world.wdio.getGhostDriver (browser) ->
+    options =
+      desiredCapabilities: browserName: 'PhantomJs'
+      port: 4444
+      logLevel: 'silent'
+
+    world.wdio.getGhostDriver options, (browser) ->
       world.browser = browser
       browser.call callback
       return

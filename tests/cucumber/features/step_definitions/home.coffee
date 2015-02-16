@@ -10,7 +10,7 @@ module.exports = ->
   @When /^I navigate to the home page$/, (callback) ->
     helper.world.browser
       .url(helper.world.mirrorUrl)
-      .pause(250)
+      .pause(100)
       .call(callback)
     return
 
@@ -25,7 +25,7 @@ module.exports = ->
   @When /^I click the "([^"]*)" link$/, (btnId, callback) ->
     helper.world.browser
       .click("##{btnId}")
-      .pause(250)
+      .pause(100)
       .call(callback)
     return
 
