@@ -11,26 +11,50 @@ main {
   padding-top: 5vh;
 }
 
-.nav-wrapper {
-  .btn-floating {
-    margin: 0 1rem 0 0;
-    float: left;
-    margin-top: 14px;
+@media only screen and (min-width: 601px){
+  .brand-logo.with-return {
+    margin-left: 2.7rem;
+  }
+}
+
+nav .brand-logo.with-button-before {
+  margin-left: 2.7rem;
+}
+
+nav a.button-in-header {
+  float: left;
+  position: relative;
+  z-index: 1;
+  height: 56px;
+
+  i {
+    font-size: 2.7rem;
+    height: 56px;
+    line-height: 56px;
+  }
+
+  @media only screen and (min-width : 601px) {
+    height: 64px;
+    line-height: 64px;
 
     i {
-      color: #FFF;
-      line-height: 37px;
-      height: auto;
+      font-size: 2.7rem;
+      height: 64px;
+      line-height: 64px;
     }
   }
 }
 
 nav ul li {
-  height: 64px;  
+  height: 64px;
 }
 
 .btn-flat:focus {
   background-color: inherit;
+}
+
+.btn.left {
+  margin-right: 1rem;
 }
 
 .modal-content h4 .modal-close {
@@ -86,9 +110,14 @@ nav ul li {
     border: 2px solid white;
   }
 }
+
 .avatar {
   float: left;
-  margin-top: 5px;
+  margin: 10px 5px 0 0;
+
+  @media only screen and (min-width: 601px){
+    margin: 5px 0 0 0;
+  }
 }
 
 .selectize-control.single .selectize-input, .selectize-control.single .selectize-input.focus {

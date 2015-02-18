@@ -1,6 +1,7 @@
 {
   "select-or-create-category": "Choisissez une catégorie",
   "select-or-create-category-help": "Vous pouvez créer une nouvelle catégorie en saisissant son nom",
+  "select-or-create-participant-help": "Vous pouvez créer un nouveau participant en saisissant son nom puis son prénom (nom, prénom)",
   "add": "Ajouter",
   "present": "Présent",
   "missing": "Absent",

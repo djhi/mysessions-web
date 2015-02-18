@@ -1,0 +1,2 @@
+Avatar.options =
+  fallbackType: "initials"

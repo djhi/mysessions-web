@@ -5,7 +5,7 @@ Router.route '/events/new',
     collection: MS.EventOccurences
   onAfterAction: ->
     Session.set 'returnUrl', '/events'
-    Session.set 'title', 'Nouvel évènement'
+    Session.set 'title', 'Nouveau'
 
 Router.route '/events',
   name: 'events'
@@ -32,11 +32,19 @@ Router.route '/events/:_id',
     eventOccurences: MS.EventOccurences.findByRecurringEvent @params._id
     title: title
   onAfterAction: ->
-    Session.set 'returnUrl', '/events'
+    Session.set 'returnUrl', undefined
     Session.set 'title', 'Evènements'
 
 Router.route '/events/:_id/edit',
   name: 'eventsEdit'
+  yieldTemplates:
+    header:
+      to: 'header'
+    footer:
+      to: 'footer'
+    eventActions:
+      to: 'header-actions'
+
   waitOn: -> [
       MS.SubsManager.subscribe "eventOccurence", @params._id
       MS.SubsManager.subscribe "participants"
@@ -52,4 +60,4 @@ Router.route '/events/:_id/edit',
     Session.set 'returnUrl', '/events'
     eventOccurence = MS.EventOccurences.findOne @params._id
     if eventOccurence
-      Session.set 'title', eventOccurence.name()
+      Session.set 'title', undefined

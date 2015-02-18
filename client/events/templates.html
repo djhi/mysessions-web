@@ -63,16 +63,36 @@
         <h5>Participants</h5>
       </div>
       <div class="col s12">
-        {{#afModal class="waves-effect btn grey" collection="MS.Participants" operation="insert" omitFields="userId,eventOccurencesIds,recurringEventsIds" buttonContent=addParticipantButton}}
-          {{_ 'addParticipant'}}
-        {{/afModal}}
-        <p class="blue-text">Cochez les personnes présentes</p>
-        {{> afQuickField name='participantsIds' label=false type="select-checkbox" options=getParticipants}}
+        {{> _newParticipantTypeahead}}
+        <div class="col s12">
+          <p class="blue-text">Cochez les personnes présentes</p>
+          {{> afQuickField name='participantsIds' label=false type="select-checkbox" options=getParticipants}}
+        </div>
       </div>
     </div>
     {{else}}
     <p class="blue-text">Choisissez un évènement recurrent pour sélectionner des participants</p>
     {{/if}}
-    {{> _submit}}
+    <div class="row">
+      <div class="col s12">
+        {{> _submit}}
+        {{#afModal class="btn left red" collection="MS.EventOccurences" operation="remove" title=" " buttonContent="Supprimer" prompt="Êtes-vous sûr ?" doc=eventOccurence._id}}
+          <i class="mdi-action-delete"></i> Supprimer
+        {{/afModal}}
+        <a class="btn left grey" href="#"><i class="mdi-social-share"></i> Partager</a>
+      </div>
+    </div>
   {{/autoForm}}
+</template>
+
+<template name="_newParticipantTypeahead">
+  <div class="input-field col s12">
+    <input type="text" id="newParticipant" name="newParticipant" />
+    <label for="newParticipant">Nom et prénom d'un nouveau participant</label>
+  </div>
+</template>
+
+<template name="eventActions">
+  <a class="button-in-header right hide-on-large-only" href="#"><i class="mdi-action-delete"></i></a>
+  <a class="button-in-header right hide-on-large-only" href="#"><i class="mdi-social-share"></i></a>
 </template>

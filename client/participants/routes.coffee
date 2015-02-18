@@ -23,7 +23,8 @@ Router.route '/events/:_id/participants',
     participants: MS.Participants.findByRecurringEvent @params._id
     title: title
   onAfterAction: ->
-    Session.set 'returnUrl', '/participants'
+    Session.set 'returnUrl', undefined
+    Session.set 'title', 'Participants'
 
 Router.route '/participants/new',
   name: 'participantsNew'
